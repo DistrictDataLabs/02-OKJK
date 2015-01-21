@@ -59,6 +59,7 @@ fixtures/*.tsv
 fixtures/*.csv
 fixtures/*.xml
 fixtures/htdocs
+fixtures/*.txt
 
 # Local configurations
 conf/octavo.yaml
