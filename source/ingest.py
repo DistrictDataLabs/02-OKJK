@@ -1,3 +1,6 @@
+#! usr/bin/env python
+
+
 import requests
 import os
 import csv
@@ -41,7 +44,11 @@ def get_data(urls, export_dir = os.path.realpath(__file__)):
 	
 	for url in urls.keys():
 		r = requests.get(urls[url])
-		r.raise_for_status()
+		try:
+			r.raise_for_status()
+		except requests.exceptions.HTTPError as e:
+			print url, "failed", e
+
 		print 'writing to {0}.txt'.format(url)
 		with open(export_dir+"{0}.txt".format(url), 'wb') as f:
 			f.write(r.text)
