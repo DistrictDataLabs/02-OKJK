@@ -10,11 +10,26 @@ import pandas as pd
 
 
 
-def load_data(dir = '../fixtures/', file_name = 'all_states.txt'):
-	data = pd.read_table(dir+file_name, sep = '\t')
+def load_data(dir = '../fixtures/', file_name = 'all_states.txt', sep = '\t'):
+	"""
+	Given a directory, file_name, and seperator, load them into
+	a pandas dataframe.
+
+	Returns: a pandas dataframe.
+	"""
+
+	data = pd.read_table(dir+file_name, sep = sep)
 	return data
 
+
 def get_state_codes(state_file = '../fixtures/s_r_division.txt'):
+	"""
+	Uses the s_r_division text from the BLS website to 
+	creates a dictionary which maps state codes to states.
+
+	Returns: a dictionary, keys of state codes and values of states
+	"""
+
 	mapper = dict()
 	with open(state_file) as f:
 		reader = csv.DictReader(f, delimiter = '\t')
@@ -24,15 +39,31 @@ def get_state_codes(state_file = '../fixtures/s_r_division.txt'):
 	return mapper
 
 def get_recent_data(data):
+	"""
+	Finds the most recent data in the data and subsets
+	it only to return the data which is most recent. 
 
-	recent_data = data[data['year'] == 2014]
-	recent_data = recent_data[recent_data['period'] == 'M11']
+	Returns: a pandas dataframe.
+	"""
+	most_recent_year = max(data['year'].values)
+	recent_data = data[data['year'] == most_recent_year]
+
+	try:
+		#M13 is used to denote a yearly average and should not be used
+		most_recent_month = max(recent_data['period'].values.remove('M13'))
+	except ValueError as ve:
+		most_recent_month = max(recent_data['period'].values)
+
+	recent_data = recent_data[recent_data['period'] == most_recent_month]
+
 	return recent_data
+ 
+
 
 
 def export_recent_data(data):
 
-	data.to_csv('../fixtures/output.csv')
+	data.to_csv('../fixtures/output.csv', sep = '\t', encoding = 'utf-8')
 
 def main():
 	##Load the state data
