@@ -13,9 +13,10 @@ import pandas as pd
 def load_data(dir = '../fixtures/', file_name = 'all_states.txt', sep = '\t'):
 	"""
 	Given a directory, file_name, and seperator, load them into
-	a pandas dataframe. Also, strips the 'series_id' field 
-	and creates a new column called 'measure_code' which 
-	is the last two digits of series_id.
+	a pandas dataframe. 
+
+	Also, creates state_code and measure_code columns built from the
+	original 'series_id' code.
 
 	Returns: a pandas dataframe.
 	"""
@@ -31,6 +32,9 @@ def load_data(dir = '../fixtures/', file_name = 'all_states.txt', sep = '\t'):
 	#### The last two digits of series id refer to particular measure
 	#### We seperate this for conveneiences sake.
 	data['measure_code'] = data['series_id'].str[-2:]
+
+
+	data['state_code'] = data['series_id'].str[5:7]
 
 
 	return data
@@ -119,16 +123,19 @@ def subset_data_measure(data, measure_codes, desired_measure):
 
 
 
-def subset_data_state(data):
+def subset_data_state(data, state_codes):
 	"""
 
+
 	"""
-	pass
+	data['state_name'] = data['state_code'].map(state_codes)
+
+	return data
 
 
-def export_recent_data(data):
+def export_clean_data(data):
 
-	data.to_csv('../fixtures/output.csv', sep = '\t', encoding = 'utf-8')
+	data.to_csv('../fixtures/clean_output.csv', sep = '\t', encoding = 'utf-8')
 
 def main():
 
@@ -150,12 +157,13 @@ def main():
 	state_codes = get_state_codes()
 
 	data = subset_data_measure(data, measure_codes, 'unemployment rate')
+	data = subset_data_state(data, state_codes)
 	print 'After Measures Subset:'
 	print data.info()
 
 
-	##Export the data
-	# export_recent_data(data)
+	#Export the data
+	export_clean_data(data)
 
 
 
