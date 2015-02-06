@@ -55,7 +55,7 @@ def get_data(urls, export_dir = os.path.realpath(__file__)):
 
 def main():
 	urls = get_urls()
-	get_data(urls, export_dir = '../fixtures/')
+	get_data(urls, export_dir = '../../fixtures/')
 
 
 if __name__ == '__main__':
