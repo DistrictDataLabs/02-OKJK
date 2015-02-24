@@ -135,7 +135,7 @@ def subset_data_state(data, state_codes):
 
 def export_clean_data(data):
 
-	data.to_csv('../fixtures/clean_output.csv', sep = '\t', encoding = 'utf-8')
+	data.to_csv('../fixtures/clean_laubs.csv', sep = '\t', encoding = 'utf-8')
 
 def main():
 

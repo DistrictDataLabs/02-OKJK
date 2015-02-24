@@ -1,0 +1,42 @@
+
+###############################################################################
+# Imports
+###############################################################################
+
+import vincent
+import pandas as pd
+import json
+
+###############################################################################
+# Load Data
+###############################################################################
+
+with open('../fixtures/us_states.topo.json') as f:
+	state_topo = f.read()
+
+state_data = pd.read_csv("../fixtures/clean_laubs.csv")
+
+geo_data = [{
+	'name'   : 'states',
+	'url'    :  state_topo,
+	'feature': 'us_states.geo'
+	}]
+
+###############################################################################
+# Mapping
+###############################################################################
+
+vis = vincent.Map(data = state_data,
+	geo_data = geo_data, scale = 200, data_bind = 'value',
+	 data_key = 'state_name')
+# vis = vincent.Map(width = 1000, height = 800)
+# 
+
+
+
+# # state_data = pd.read_csv(state_unemployment)
+# vis.tabular_data(state_data, columns=['state_name', 'value'])
+vis.geo_data(bind_data='data.id', reset=True, states=state_geo)
+# vis.update_map(scale=1000, projection='albersUsa')
+# vis + (['#c9cedb', '#0b0d11'], 'scales', 0, 'range')
+# vis.to_json(path)
