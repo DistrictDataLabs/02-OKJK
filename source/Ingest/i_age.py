@@ -14,8 +14,9 @@ import requests
 ###############################################################################
 
 base_url = 'http://api.census.gov/data/2010/sf1?'
+api_key  = '5a6a71e33855262413e837363928828d7c91f425'
 
 
-state 
+try_me   = 'http://api.census.gov/data/2013/pep/stchar6?get=DATE,STNAME,POP&for=state:*&key={0}'format(api_key)
 
-try_me = 'http://api.census.gov/data/2013/pep/stchar6?get=DATE,STNAME,POP&for=state:*&key=YOUR_KEY'
+
