@@ -84,10 +84,11 @@ def subset_data_recent(data):
 	######## First, only get the most recent year
 	recent_data = data[data['year'] == most_recent_year]
 
+	print set(recent_data['period'].tolist()).remove('M13')
 	######## Next, get only the most recent month
 	try:
 		#M13 is used to denote a yearly average and should not be used
-		most_recent_month = max(recent_data['period'].tolist().remove('M13'))
+		most_recent_month = max(recent_data['period'].tolist().discard('M13'))
 
 	except ValueError as ve:
 		most_recent_month = max(recent_data['period'].values)
