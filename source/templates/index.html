@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Flasked Vincent</title>
+    <title>Datums</title>
     <meta charset="utf-8">
     
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
@@ -17,27 +17,23 @@
     <style>hr, h3 {padding-bottom: 20px;}canvas {background-color: #fffff;}</style>
   </head>
   <body>
-    
     <div class="container">
       
       <div class="header">
         <ul class="nav nav-pills pull-right">
           <li class="active">
-          <li><a href="http://vincent.readthedocs.org/en/latest/">Vincent</a></li>
-          <li><a href="http://trifacta.github.io/vega/">Vega</a></li>
-          <li><a href="http://d3js.org/">D3</a></li>
-          <li><a href="http://flask.pocoo.org/">Flask</a></li>
+
         </ul>
-        <h3 class="text-muted">Flasked Vincent</h3>
+        <h3 class="text-muted">Datums</h3>
       </div>
       
       <div class="charts text-center">
         <div class="row"><div id="bar"></div></div><hr>
-	<div class="row"><div id="line"></div></div><hr>
-	<div class="row"><div id="multiline"></div></div><hr>
-	<div class="row"><div id="stocks"></div></div><hr>
-	<div class="row"><div id="stacked_stocks"></div></div><hr>
-	<div class="row"><div id="stacked_bar"></div></div><hr>
+  <!-- <div class="row"><div id="line"></div></div><hr> -->
+  <!-- <div class="row"><div id="multiline"></div></div><hr> -->
+  <!-- <div class="row"><div id="stocks"></div></div><hr> -->
+  <!-- <div class="row"><div id="stacked_stocks"></div></div><hr> -->
+  <div class="row"><div id="stacked_bar"></div></div><hr>
        </div>
     </div>
     
@@ -52,11 +48,11 @@
           })
       }
       
-      parse("/data/bar", "bar")
-      parse("/data/line", "line");
-      parse("/data/multiline", "multiline");
-      parse("/data/stocks", "stocks");
-      parse("/data/stacked_stocks", "stacked_stocks");
+      parse("/data/bar", "bar");
+      // parse("/data/line", "line");
+      // parse("/data/multiline", "multiline");
+      // parse("/data/stocks", "stocks");
+      // parse("/data/stacked_stocks", "stacked_stocks");
       parse("/data/stacked_bar", "stacked_bar");
     </script>
 
