@@ -56,7 +56,7 @@ docs/_build/
 
 # Fixtures - ignore anything but .zip or .tgz
 fixtures/*.tsv
-fixtures/*.csv
+
 fixtures/*.xml
 fixtures/htdocs
 fixtures/*.txt

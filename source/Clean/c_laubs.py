@@ -87,10 +87,13 @@ def subset_data_recent(data):
 	######## Next, get only the most recent month
 	try:
 		#M13 is used to denote a yearly average and should not be used
-		most_recent_month = max(recent_data['period'].tolist().remove('M13'))
+		most_recent_month = max(recent_data['period'].tolist())
 
-	except ValueError as ve:
-		most_recent_month = max(recent_data['period'].values)
+	except:
+		pass
+	if most_recent_month == 'M13':
+		most_recent_month = 'M12'
+
 
 	recent_data = recent_data[recent_data['period'] == most_recent_month]
 
@@ -139,18 +142,15 @@ def export_clean_data(data):
 
 def main():
 
-
 	##Load the state data
 	data = load_data()
 	
-	print 'Initial Load:'
-	print data.info()
+	print 'Initial Load'
 
 	## Subset it to only the most recent data
 	data = subset_data_recent(data)
 
-	print 'After Date Subset:'
-	print data.info()
+	print 'After Date Subset'
 
 	#load in the 'keys' from bls website as dictionaries
 	measure_codes = get_measure_codes()
@@ -158,8 +158,7 @@ def main():
 
 	data = subset_data_measure(data, measure_codes, 'unemployment rate')
 	data = subset_data_state(data, state_codes)
-	print 'After Measures Subset:'
-	print data.info()
+	print 'After Measures Subset'
 
 
 	#Export the data
@@ -168,6 +167,5 @@ def main():
 
 
 if __name__ == '__main__':
-	print os.path.realpath(__file__)
 
 	main()

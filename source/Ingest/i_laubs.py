@@ -12,11 +12,11 @@ import csv
 # Some of this isn't data--it's supporting documentation that
 # explains what the data is, etc. Load them judiciously! 
 ###############################################################################
+import os
 
 
 
-
-def get_urls(url_file = './urls.txt'):
+def get_urls(url_file = '../source/Ingest/urls.txt'):
 	"""
 	Right now, simply returns a dictionary of predefined
 	urls. Later, might load from a seperate resource
@@ -55,7 +55,7 @@ def get_data(urls, export_dir = os.path.realpath(__file__)):
 
 def main():
 	urls = get_urls()
-	get_data(urls, export_dir = '../../fixtures/')
+	get_data(urls, export_dir = '../fixtures/')
 
 
 if __name__ == '__main__':
