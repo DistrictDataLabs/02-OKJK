@@ -19,7 +19,7 @@ HEIGHT = 300
 
 @app.route("/data/bar")
 def data_bar():
-    return vincent.Bar(data.multi_iter1['y1'], width=WIDTH, height=HEIGHT).to_json()
+    return vincent.Bar(data.df_states['value'], width=WIDTH, height=HEIGHT).to_json()
 
 
 @app.route("/data/line")
@@ -59,9 +59,10 @@ def stacked_stocks():
 
 @app.route("/data/stacked_bar")
 def stacked_bar():
-    stack = vincent.StackedBar(data.df_farm, width=WIDTH, height=HEIGHT)
-    stack.axis_titles(x='Total Produce', y='Farms')
-    stack.legend(title='Produce Types')
+    stack = vincent.StackedBar(data.df_states, width=WIDTH, height=HEIGHT)
+    print data.df_states.info()
+    stack.axis_titles(x='state_name', y='value')
+    stack.legend(title='Unemployment by State')
     stack.scales['x'].padding = 0.2
     stack.colors(brew='Pastel1')
     return stack.to_json()
