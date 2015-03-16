@@ -14,6 +14,16 @@
     <script src="http://d3js.org/d3.geo.projection.v0.min.js" charset="utf-8"></script>
     <script src="http://trifacta.github.com/vega/vega.js"></script>
 
+    <!-- Include jQuery -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+    <!-- Include Simple Slider JavaScript and CSS -->
+    <script src="~/git/jquery-simple-slider/js/simple-slider.js"></script>
+    <link href="~/git/jquery-simple-slider/css/simple-slider.css" rel="stylesheet" type="text/css"/>
+
+
+
+
     <style>hr, h3 {padding-bottom: 20px;}canvas {background-color: #fffff;}</style>
   </head>
   <body>
@@ -54,7 +64,12 @@
       // parse("/data/stocks", "stocks");
       // parse("/data/stacked_stocks", "stacked_stocks");
       parse("/data/stacked_bar", "stacked_bar");
+
+
     </script>
+    <div class="slider" style="position: relative; -webkit-user-select: none; box-sizing: border-box; min-height: 18px; margin-left: 9px; margin-right: 9px;"><div class="track" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; width: 100%; margin-top: -3.5px;"></div><div class="dragger" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; margin-top: -9px; margin-left: -9px; left: 106.020832061768px;"></div></div>
+    <input type="text" data-slider="true" style="display: none;">
+    <span class="output">0.353</span>
 
   </body>
 </html>
