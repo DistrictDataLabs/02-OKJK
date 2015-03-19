@@ -14,12 +14,13 @@
     <script src="http://d3js.org/d3.geo.projection.v0.min.js" charset="utf-8"></script>
     <script src="http://trifacta.github.com/vega/vega.js"></script>
 
-    <!-- Include jQuery -->
+   <!-- Include jQuery -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 
     <!-- Include Simple Slider JavaScript and CSS -->
-    <script src="templates/simple-slider.js"></script>
-    <link href="simple-slider.css" rel="stylesheet" type="text/css"/>
+    <script src="https://rawgit.com/julbright/jquery-simple-slider/master/js/simple-slider.js"></script>
+    <link href="https://rawgit.com/julbright/jquery-simple-slider/master/css/simple-slider.css" rel="stylesheet" type="text/css"/>
+
 
 
     <style>hr, h3 {padding-bottom: 20px;}canvas {background-color: #fffff;}</style>
@@ -41,12 +42,18 @@
   <div class="row"><div id="stacked_bar"></div></div><hr>
        </div>
     </div>
-
-
-    <div class="slider" style="position: relative; -webkit-user-select: none; box-sizing: border-box; min-height: 18px; margin-left: 9px; margin-right: 9px;"><div class="track" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; width: 100%; margin-top: -3.5px;"></div><div class="dragger" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; margin-top: -9px; margin-left: -9px; left: 106.020832061768px;"></div></div>
-    <input type="text" data-slider="true" style="display: none;">
+      <!--<div class="slider" style="position: relative; -webkit-user-select: none; box-sizing: border-box; min-height: 18px; margin-left: 9px; margin-right: 9px;">-->
+        <div class="track" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; width: 100%; margin-top: -3.5px;"></div>
+        <div class="dragger" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; margin-top: -9px; margin-left: -9px; left: 106.020832061768px;"></div>
+    <!--</div>-->
+    <input type="text" data-slider="true" style="display: Hi there;">
     <span class="output">0.353</span>
-
+<script>
+$("[data-slider]")
+  .bind("slider:ready slider:changed", function (event, data) {
+    $(this).nextAll("span").html(data.value.toFixed(3));
+  });
+</script>
 
     
     <!-- Render Charts -->
