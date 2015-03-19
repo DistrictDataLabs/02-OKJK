@@ -3,6 +3,7 @@
 
 import data
 import vincent
+from vincent import AxisProperties, PropertySet, ValueRef
 from flask import Flask, render_template
 app = Flask(__name__)
 
@@ -19,7 +20,12 @@ HEIGHT = 300
 
 @app.route("/data/bar")
 def data_bar():
-    return vincent.Bar(data.df_states['value'], width=WIDTH, height=HEIGHT).to_json()
+    bar = vincent.Bar(data.df_states_si['value'], width=WIDTH, height=HEIGHT)
+    bar.axis_titles(x = 'State', y = 'Unemployment Level')
+    ax = AxisProperties(
+    	labels = PropertySet(angle = ValueRef(value = 90)))
+    bar.axes[0].properties = ax
+    return bar.to_json()
 
 
 @app.route("/data/line")
@@ -60,7 +66,6 @@ def stacked_stocks():
 @app.route("/data/stacked_bar")
 def stacked_bar():
     stack = vincent.StackedBar(data.df_states, width=WIDTH, height=HEIGHT)
-    print data.df_states.info()
     stack.axis_titles(x='state_name', y='value')
     stack.legend(title='Unemployment by State')
     stack.scales['x'].padding = 0.2

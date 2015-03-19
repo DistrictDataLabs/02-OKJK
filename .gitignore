@@ -2,6 +2,10 @@
 __pycache__/
 *.py[cod]
 
+
+# Cloud9 files
+.c9/
+
 # C extensions
 *.so
 
