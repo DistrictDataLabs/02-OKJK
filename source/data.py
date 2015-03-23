@@ -34,8 +34,8 @@ Copyright 2013, Rob Story, Dan Miller, et. al..
 # farm_index = ['Farm 1', 'Farm 2', 'Farm 3', 'Farm 4']
 # df_farm = pd.DataFrame(farm_data, index=farm_index)
 
-df_states = pd.DataFrame.from_csv('fixtures/clean_laubs.csv', sep='\t', header = 0)
-df_states_si = df_states.set_index('state_name')
+df_states = pd.DataFrame.from_csv('fixtures/final_data.tsv', sep='\t', header = 0)
+# df_states_si = df_states.set_index('state_name')
 # #As DataFrames
 # index_3 = multi_iter2.pop('index')
 # df_1 = pd.DataFrame(multi_iter2, index=index_3)
