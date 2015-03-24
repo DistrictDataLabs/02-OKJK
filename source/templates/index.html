@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Datums</title>
+    <title>One Score to Rank Them All</title>
     <meta charset="utf-8">
     
     <!-- JQUERY -->
@@ -22,63 +22,67 @@
 
     <!-- Simple Slider JavaScript and CSS -->
     <script src="https://rawgit.com/julbright/jquery-simple-slider/master/js/simple-slider.js"></script>
-    <link href="https://rawgit.com/julbright/jquery-simple-slider/master/css/simple-slider.css" rel="stylesheet" type="text/css"/>
+    <link href="https://rawgit.com/julbright/jquery-simple-slider/master/css/simple-slider.css" rel="stylesheet" type="text/css">
 
 
 
     <style>hr, h3 {padding-bottom: 20px;}canvas {background-color: #fffff;}</style>
   </head>
   <body>
+    
+    <!-- Div to hold header and chart -->
     <div class="container">
+      
+      <!-- Header -->
       <div class="header">
         <ul class="nav nav-pills pull-right">
           <li class="active">
-
         </ul>
         <h3 class="text-muted">One Score to Rank Them All</h3>
       </div>
       
-    <div class="charts text-center">
-      <div class="row"><div id="bar"></div>
-    </div><hr>
-
-    <div class="row"><div id="stacked_bar"></div>
-    </div><hr>
-
+      <!-- Chart Div -->
+      <div class="charts text-center">
+        
+        <!-- Only one chart -->
+        <div class="row"><div id="bar"></div></div>
+      </div>
+      <hr>
+    </div>
     
-    <div class="track" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; width: 100%; margin-top: -3.5px;"></div>
-    <div class="dragger" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; margin-top: -9px; margin-left: -9px; left: 106.020832061768px;"></div>
-    <input type="text" data-slider="true" style="display: Hi there;">
-    <span class="output">0.353</span>
+    <!-- Div to hold sliders -->
+    <div class = 'container'>
+      <div class="track" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; width: 100%; margin-top: -3.5px;"></div>
+      <div class="dragger" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; margin-top: -9px; margin-left: -9px; left: 106.020832061768px;"></div>
+      <input type="text" data-slider="true" style="display: Hi there;">
+      <span class="output">0.353</span>
+    </div>
+  
+    <!-- Slider script -->
     <script>
     $("[data-slider]")
       .bind("slider:ready slider:changed", function (event, data) {
         $(this).nextAll("span").html(data.value.toFixed(3));
       });
     </script>
-
     
-    <!-- Render Charts -->
+    <!-- Render Charts script -->
     <script type="text/javascript">
       function parse(url, div) {
           vg.parse.spec(url, function(chart) { 
-              chart({el:"#" + div}).update() 
+              chart({el:"#" + div}).update();
               var canvas = $("#" + div).find("canvas")[0];
               var img = canvas.toDataURL("image/png");
-              $("#" + div).append("<a class='btn btn-primary' href='" + img + "' download='" + div + ".png'>Download</a>");
-          })
+              // $("#" + div).append("<a class='btn btn-primary' href='" + img + "' download='" + div + ".png'>Download</a>");
+          });
       }
       parse("/data/bar", "bar");
       // parse("/data/line", "line");
       // parse("/data/multiline", "multiline");
       // parse("/data/stocks", "stocks");
       // parse("/data/stacked_stocks", "stacked_stocks");
-      parse("/data/stacked_bar", "stacked_bar");
-
-
+      // parse("/data/stacked_bar", "stacked_bar");
     </script>
-
-
 
   </body>
 </html>
