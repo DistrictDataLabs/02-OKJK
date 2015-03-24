@@ -35,6 +35,7 @@ Copyright 2013, Rob Story, Dan Miller, et. al..
 # df_farm = pd.DataFrame(farm_data, index=farm_index)
 
 df_states = pd.DataFrame.from_csv('fixtures/final_data.tsv', sep='\t', header = 0)
+df_age = df_states['age']
 # df_states_si = df_states.set_index('state_name')
 # #As DataFrames
 # index_3 = multi_iter2.pop('index')

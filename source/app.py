@@ -20,8 +20,9 @@ HEIGHT = 300
 
 @app.route("/data/bar")
 def data_bar():
-    bar = vincent.Bar(data.df_states_si['value'], width=WIDTH, height=HEIGHT)
-    bar.axis_titles(x = 'State', y = 'Unemployment Level')
+    # summed = data.df_states['age'] + data.df_states['laubs']
+    bar = vincent.Bar(data.df_states['age'].values, width=WIDTH, height=HEIGHT)
+    bar.axis_titles(x = 'State', y = 'Age')
     ax = AxisProperties(
     	labels = PropertySet(angle = ValueRef(value = 90)))
     bar.axes[0].properties = ax
@@ -63,14 +64,14 @@ def stacked_stocks():
     return stacked.to_json()
 
 
-@app.route("/data/stacked_bar")
-def stacked_bar():
-    stack = vincent.StackedBar(data.df_states, width=WIDTH, height=HEIGHT)
-    stack.axis_titles(x='state_name', y='value')
-    stack.legend(title='Unemployment by State')
-    stack.scales['x'].padding = 0.2
-    stack.colors(brew='Pastel1')
-    return stack.to_json()
+# @app.route("/data/stacked_bar")
+# def stacked_bar():
+#     stack = vincent.StackedBar(data.df_states, width=WIDTH, height=HEIGHT)
+#     stack.axis_titles(x='state_name', y='age')
+#     stack.legend(title='Unemployment by State')
+#     stack.scales['x'].padding = 0.2
+#     stack.colors(brew='Pastel1')
+#     return stack.to_json()
 
 
 if __name__ == "__main__":
