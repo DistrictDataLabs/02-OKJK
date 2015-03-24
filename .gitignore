@@ -59,7 +59,6 @@ docs/_build/
 .DS_Store
 
 # Fixtures - ignore anything but .zip or .tgz
-fixtures/*.tsv
 
 fixtures/*.xml
 fixtures/htdocs
