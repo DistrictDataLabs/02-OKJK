@@ -171,6 +171,20 @@ def normalize_data(df):
 
 	return df
 
+def fill_missing_values(df):
+	"""
+	given a df, replaces missing values with the average of 
+	the dataset
+	
+	df : the dataframe to have missing values interpolated
+	
+	returns: a dataframe with interpolated values
+	"""
+
+	df = df.fillna(df.mean())
+
+	return df
+
 ################################################################################
 # Main Execution
 ################################################################################
@@ -181,6 +195,7 @@ def main():
 	loaded = load_clean_data(delims)
 	final_data = combine_data(loaded)
 	final_data = normalize_data(final_data)
+	final_data = fill_missing_values(final_data)
 	export_data(final_data)
 
 if __name__ == '__main__':
