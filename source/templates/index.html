@@ -52,35 +52,73 @@
     
     <!-- Div to hold sliders -->
     <div class = 'container'>
+      
       <div class="track" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; width: 100%; margin-top: -3.5px;"></div>
       <div class="dragger" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; margin-top: -9px; margin-left: -9px; left: 106.020832061768px;"></div>
-      <input type="text" data-slider="true" style="display: Hi there;">
+      <input type="text" data-slider="age" style="display: Hi there;">
       <span class="output">0.353</span>
+      
+      <div class="track" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; width: 100%; margin-top: -3.5px;"></div>
+      <div class="dragger" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; margin-top: -9px; margin-left: -9px; left: 106.020832061768px;"></div>
+      <input type="text" data-slider="laubs" style="display: Hi there;">
+      <span class="output">0.353</span>
+      
     </div>
 
     
-    <script type="text/javascript">
-    
-      var ageData = {'test': 3};
-      var laubsData;
-    
-      $.getJSON("/data/age", agecallback);
-      function agecallback(data){
-        ageData = data.data[0].values;
-      }
+    <script type = 'text/javascript'>
       
-      $.getJSON("/data/laubs", laubscallback);
-      function laubscallback(data){
-        laubsData = data.data[0].values;
-      }
+      var serieses = ['age', 'laubs'];
+  
+      var data = {};
       
-      setTimeout(function(){
-        console.log(laubsData, ageData);
-        }, 10000);
+      var get_data = function(series){
+        $.getJSON("/data/"+series, function(data){
+          return data;
+        });
+      };
 
+      $.each(serieses, function(index, series){
+        console.log(series);
+        data[series] = get_data(series);
+      });
       
-      // log_stuff(laubsData, ageData);
+      var weights = {};
+      
+      
+      function weightThatData(){
+        var base_series = $.extend(true, {}, data['age']);
+        $.each(base_series.data[0].values, function(key, value){
+          // value.val = 0;
+          console.log(key, value);
+        });
+        
+        
+        
+      }
+  
+      $("[data-slider]")
+      .bind("slider:ready slider:changed", function (event, data) {
+        $(this).nextAll("span").html(data.value.toFixed(1));
+        var series = $(this).data("slider");
+        weights[series] = data.value.toFixed(1);
+        // console.log(weights);
+        if (event.type == "slider:changed"){
+          // weightthedata()
+        }
+        
+        
+      
+        
+      });    
+      
+      
+      
+      
+      
+      
     </script>
+    
     
         <!-- Render Charts script -->
     <script type="text/javascript">
@@ -99,14 +137,7 @@
   
     <!-- Slider script -->
     <script>
-    $("[data-slider]")
-      .bind("slider:ready slider:changed", function (event, data) {
-        $(this).nextAll("span").html(data.value.toFixed(1));
-        var age_slider_value = data.value.toFixed(1);
-        console.log(age_slider_value);
-        // console.log(age_values)
-        
-      });
+
     </script>
     
 
