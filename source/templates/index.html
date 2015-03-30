@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>One Score to Rank Them All</title>
+    <title>My Economy Score</title>
     <meta charset="utf-8">
     
     <!-- JQUERY -->
@@ -38,7 +38,7 @@
         <ul class="nav nav-pills pull-right">
           <li class="active">
         </ul>
-        <h3 class="text-muted">One Score to Rank Them All</h3>
+        <h3 class="text-muted">My Economy Score</h3>
       </div>
       
       <!-- Chart Div -->
@@ -57,32 +57,59 @@
       <input type="text" data-slider="true" style="display: Hi there;">
       <span class="output">0.353</span>
     </div>
-  
-    <!-- Slider script -->
-    <script>
-    $("[data-slider]")
-      .bind("slider:ready slider:changed", function (event, data) {
-        $(this).nextAll("span").html(data.value.toFixed(3));
-      });
+
+    
+    <script type="text/javascript">
+    
+      var ageData = {'test': 3};
+      var laubsData;
+    
+      $.getJSON("/data/age", agecallback);
+      function agecallback(data){
+        ageData = data.data[0].values;
+      }
+      
+      $.getJSON("/data/laubs", laubscallback);
+      function laubscallback(data){
+        laubsData = data.data[0].values;
+      }
+      
+      setTimeout(function(){
+        console.log(laubsData, ageData);
+        }, 10000);
+
+      
+      // log_stuff(laubsData, ageData);
     </script>
     
-    <!-- Render Charts script -->
+        <!-- Render Charts script -->
     <script type="text/javascript">
       function parse(url, div) {
           vg.parse.spec(url, function(chart) { 
               chart({el:"#" + div}).update();
-              var canvas = $("#" + div).find("canvas")[0];
-              var img = canvas.toDataURL("image/png");
-              // $("#" + div).append("<a class='btn btn-primary' href='" + img + "' download='" + div + ".png'>Download</a>");
           });
       }
-      parse("/data/bar", "bar");
+      parse("/data/age", "bar");
       // parse("/data/line", "line");
       // parse("/data/multiline", "multiline");
       // parse("/data/stocks", "stocks");
       // parse("/data/stacked_stocks", "stacked_stocks");
       // parse("/data/stacked_bar", "stacked_bar");
     </script>
+  
+    <!-- Slider script -->
+    <script>
+    $("[data-slider]")
+      .bind("slider:ready slider:changed", function (event, data) {
+        $(this).nextAll("span").html(data.value.toFixed(1));
+        var age_slider_value = data.value.toFixed(1);
+        console.log(age_slider_value);
+        // console.log(age_values)
+        
+      });
+    </script>
+    
+
 
   </body>
 </html>
