@@ -71,53 +71,28 @@
       var serieses = ['age', 'laubs'];
       var data_dict = {};
       
-      // function get_data(series){
-      //   // debugger
-      //   $.getJSON("/data/"+series, function(data){
-      //     data_dict[series] = data
-      //     return data_dict;
-      //   });
-      // }
-      
-      // function get_data(series){
-      //   // debugger
-      //   return $.getJSON("/data/"+series, function(data).then(function(data){
-      //     data_dict[series] = data
-      //     return data_dict;
-      //   });
-      // }
-      
       function get_data(series){
         return $.getJSON("/data/"+series).then(function(data){
           return data;
         });
       }
       
-      console.log(get_data('age'))
-    
-      // $.each(serieses, function(index, series){
-      //   console.log(series);
-      //   // debugger;
-      //   data[series] = get_data(series);
-      // });
       
-      get_data('age')
-      // debugger
+      $.each(serieses, function(index, series){
+        get_data(series).then(function(returndata){
+          data_dict[series] = returndata;
+        });
+      });
       
       var weights = {};
       
       function weightThatData(){
-        // var base_series = $.extend(true, {}, data['age']);
-        var base_series = data['age'];
-        // debugger;
-        // console.log(base_series);
+        var base_series = data_dict['age'];
         $.each(base_series.data[0].values, function(value){
-          // debugger;
           value.val = 0;
           console.log(value);
         });
       }
-      // weightThatData();
   
       $("[data-slider]")
       .bind("slider:ready slider:changed", function (event, data) {
