@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>One Score to Rank Them All</title>
+    <title>My Economy Score</title>
     <meta charset="utf-8">
     
     <!-- JQUERY -->
@@ -38,7 +38,7 @@
         <ul class="nav nav-pills pull-right">
           <li class="active">
         </ul>
-        <h3 class="text-muted">One Score to Rank Them All</h3>
+        <h3 class="text-muted">My Economy Score</h3>
       </div>
       
       <!-- Chart Div -->
@@ -52,37 +52,83 @@
     
     <!-- Div to hold sliders -->
     <div class = 'container'>
+      
       <div class="track" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; width: 100%; margin-top: -3.5px;"></div>
       <div class="dragger" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; margin-top: -9px; margin-left: -9px; left: 106.020832061768px;"></div>
-      <input type="text" data-slider="true" style="display: Hi there;">
+      <input type="text" data-slider="age" style="display: Hi there;">
       <span class="output">0.353</span>
+      
+      <div class="track" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; width: 100%; margin-top: -3.5px;"></div>
+      <div class="dragger" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; margin-top: -9px; margin-left: -9px; left: 106.020832061768px;"></div>
+      <input type="text" data-slider="laubs" style="display: Hi there;">
+      <span class="output">0.303</span>
+      
     </div>
+
+    
+    <script type = 'text/javascript'>
+      
+      var serieses = ['age', 'laubs'];
+      var data_dict = {};
+      var weights = {};
+
+      function parse(spec, div) {
+        vg.parse.spec(spec, function(chart) { 
+          chart({el:"#" + div}).update();
+        });
+      }           
+      
+      
+      function get_data(series){
+        return $.getJSON("/data/"+series).then(function(data){
+          return data;
+        });
+      }
+     
+           
+      function weightThatData(){
+        var base_series = $.extend(true, {}, data_dict['age']);
+        $.each(base_series.data[0].values, function(key, value){
+          value.val = 0;
+          console.log('the age series value is : ', data_dict.age.data[0].values[key].val);
+          console.log('the age weight is : ', weights['age']);
+          console.log('the laubs series value is : ', data_dict.laubs.data[0].values[key].val);
+          console.log('the laubs weight is : ', weights['laubs'])
+          value.val += (data_dict.age.data[0].values[key].val*weights['age']);
+          value.val += (data_dict.laubs.data[0].values[key].val*weights['laubs']);
+          console.log(value.val)
+
+          console.log("final key, value", key, value);
+          parse(base_series, "bar");
+
+        });
+      }
   
-    <!-- Slider script -->
-    <script>
-    $("[data-slider]")
-      .bind("slider:ready slider:changed", function (event, data) {
-        $(this).nextAll("span").html(data.value.toFixed(3));
+      
+      $.each(serieses, function(index, series){
+        get_data(series).then(function(returndata){
+          data_dict[series] = returndata;
+        });
       });
+
+
+      $("[data-slider]")
+      .bind("slider:ready slider:changed", function (event, data) {
+        $(this).next("span").html(data.value.toFixed(1));
+        var series = $(this).data("slider");
+        weights[series] = data.value.toFixed(1);
+        console.log(weights);
+        if (event.type == "slider:changed"){
+          weightThatData();
+          console.log('slider changed');
+        }
+        else if (event.type == 'slider:ready'){
+          console.log('slider is ready.');
+        }
+      });
+      
     </script>
     
-    <!-- Render Charts script -->
-    <script type="text/javascript">
-      function parse(url, div) {
-          vg.parse.spec(url, function(chart) { 
-              chart({el:"#" + div}).update();
-              var canvas = $("#" + div).find("canvas")[0];
-              var img = canvas.toDataURL("image/png");
-              // $("#" + div).append("<a class='btn btn-primary' href='" + img + "' download='" + div + ".png'>Download</a>");
-          });
-      }
-      parse("/data/bar", "bar");
-      // parse("/data/line", "line");
-      // parse("/data/multiline", "multiline");
-      // parse("/data/stocks", "stocks");
-      // parse("/data/stacked_stocks", "stacked_stocks");
-      // parse("/data/stacked_bar", "stacked_bar");
-    </script>
 
   </body>
 </html>
