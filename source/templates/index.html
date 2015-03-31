@@ -70,38 +70,58 @@
       
       var serieses = ['age', 'laubs'];
       var data_dict = {};
+      var weights = {};
+
+      function parse(spec, div) {
+        vg.parse.spec(spec, function(chart) { 
+          chart({el:"#" + div}).update();
+        });
+      }           
+      
       
       function get_data(series){
         return $.getJSON("/data/"+series).then(function(data){
           return data;
         });
       }
-      
+     
+           
+      function weightThatData(){
+        // var base_series = data_dict['age'];
+        var base_series = $.extend(true, {}, data_dict['age']);
+        $.each(base_series.data[0].values, function(key, value){
+          value.val = 0;
+          console.log('the age series value is : ', data_dict.age.data[0].values[key].val);
+          console.log('the age weight is : ', weights['age']);
+          console.log('the laubs series value is : ', data_dict.laubs.data[0].values[key].val);
+          console.log('the laubs weight is : ', weights['laubs'])
+          value.val += (data_dict.age.data[0].values[key].val*weights['age']);
+          value.val += (data_dict.laubs.data[0].values[key].val*weights['laubs']);
+          console.log(value.val)
+          // console.log("age_values : ",data_dict.age.data[0].values[key])
+          // value.val = data_dict.age.data[0].values[key].value.val;
+          console.log("final key, value", key, value);
+          parse(base_series, "bar");
+
+        });
+      }
+  
       
       $.each(serieses, function(index, series){
         get_data(series).then(function(returndata){
           data_dict[series] = returndata;
         });
       });
-      
-      var weights = {};
-      
-      function weightThatData(){
-        var base_series = data_dict['age'];
-        $.each(base_series.data[0].values, function(value){
-          value.val = 0;
-          console.log(value);
-        });
-      }
-  
+
+
       $("[data-slider]")
       .bind("slider:ready slider:changed", function (event, data) {
-        $(this).nextAll("span").html(data.value.toFixed(1));
+        $(this).next("span").html(data.value.toFixed(1));
         var series = $(this).data("slider");
         weights[series] = data.value.toFixed(1);
         console.log(weights);
         if (event.type == "slider:changed"){
-          // weightthedata()
+          weightThatData();
           console.log('slider changed');
         }
         else if (event.type == 'slider:ready'){
@@ -114,12 +134,8 @@
     
         <!-- Render Charts script -->
     <script type="text/javascript">
-      function parse(url, div) {
-          vg.parse.spec(url, function(chart) { 
-              chart({el:"#" + div}).update();
-          });
-      }
-      parse("/data/age", "bar");
+
+      // parse("/data/age", "bar");
       // parse("/data/line", "line");
       // parse("/data/multiline", "multiline");
       // parse("/data/stocks", "stocks");
