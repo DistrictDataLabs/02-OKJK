@@ -87,7 +87,6 @@
      
            
       function weightThatData(){
-        // var base_series = data_dict['age'];
         var base_series = $.extend(true, {}, data_dict['age']);
         $.each(base_series.data[0].values, function(key, value){
           value.val = 0;
@@ -98,8 +97,7 @@
           value.val += (data_dict.age.data[0].values[key].val*weights['age']);
           value.val += (data_dict.laubs.data[0].values[key].val*weights['laubs']);
           console.log(value.val)
-          // console.log("age_values : ",data_dict.age.data[0].values[key])
-          // value.val = data_dict.age.data[0].values[key].value.val;
+
           console.log("final key, value", key, value);
           parse(base_series, "bar");
 
@@ -131,19 +129,6 @@
       
     </script>
     
-    
-        <!-- Render Charts script -->
-    <script type="text/javascript">
-
-      // parse("/data/age", "bar");
-      // parse("/data/line", "line");
-      // parse("/data/multiline", "multiline");
-      // parse("/data/stocks", "stocks");
-      // parse("/data/stacked_stocks", "stacked_stocks");
-      // parse("/data/stacked_bar", "stacked_bar");
-    </script>
-  
-
 
   </body>
 </html>
