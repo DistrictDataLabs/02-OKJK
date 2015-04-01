@@ -46,7 +46,8 @@ def data_age():
     bar.axis_titles(x = '', y = 'Economic Score')
     ax = AxisProperties(
     	labels = PropertySet(angle = ValueRef(value = 90),
-    	                     align = ValueRef(value ='left')))
+    	                     align = ValueRef(value ='left'),
+    	                     baseline= ValueRef(value = 'middle')))
     bar.axes[0].properties = ax
 
     return bar.to_json()
