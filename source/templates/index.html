@@ -71,19 +71,13 @@
       var serieses = ['age', 'laubs'];
       var data_dict = {};
       var weights = {};
-      
 
-      function create_chart(spec, div) {
-        var vis;
+      function parse(spec, div) {
         vg.parse.spec(spec, function(chart) { 
-          vis = chart({el:"#" + div}).update();
-          return vis;
+          chart({el:"#" + div}).update();
         });
-        return vis;
       }           
       
-      var vis = create_chart('data/age', 'bar');
-      debugger
       
       function get_data(series){
         return $.getJSON("/data/"+series).then(function(data){
@@ -92,16 +86,16 @@
       }
      
            
-      function weightThatData(vis){
+      function weightThatData(){
         var base_series = $.extend(true, {}, data_dict['age']);
         $.each(base_series.data[0].values, function(key, value){
-          
           value.val = 0;
           value.val += (data_dict.age.data[0].values[key].val*weights['age']);
           value.val += (data_dict.laubs.data[0].values[key].val*weights['laubs']);
-          // parse(base_series, "bar");
-          vis.data(base_series.data)
-          vis.update()
+
+          
+          parse(base_series, "bar");
+
         });
       }
   
@@ -127,9 +121,6 @@
           console.log('slider is ready.');
         }
       });
-      
-      
-      create_chart('/data/age', "bar");
       
     </script>
     
