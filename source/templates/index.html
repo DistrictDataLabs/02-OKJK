@@ -55,12 +55,12 @@
       
       <div class="track" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; width: 100%; margin-top: -3.5px;"></div>
       <div class="dragger" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; margin-top: -9px; margin-left: -9px; left: 106.020832061768px;"></div>
-      <input type="text" data-slider="age" style="display: Hi there;">
+      <input type="text" data-slider="age" style="display: Hi there;" data-slider-range = "0,100" data-slider-step="10" data-slider-snap = "true" data-slider-highlight = 'true'>
       <span class="output">0.353</span>
       
       <div class="track" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; width: 100%; margin-top: -3.5px;"></div>
       <div class="dragger" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; margin-top: -9px; margin-left: -9px; left: 106.020832061768px;"></div>
-      <input type="text" data-slider="laubs" style="display: Hi there;">
+      <input type="text" data-slider="laubs" style="display: Hi there;"  data-slider-range = "0,100" data-slider-step="10" data-slider-snap = "true" data-slider-highlight = 'true'>
       <span class="output">0.303</span>
       
     </div>
@@ -90,15 +90,10 @@
         var base_series = $.extend(true, {}, data_dict['age']);
         $.each(base_series.data[0].values, function(key, value){
           value.val = 0;
-          console.log('the age series value is : ', data_dict.age.data[0].values[key].val);
-          console.log('the age weight is : ', weights['age']);
-          console.log('the laubs series value is : ', data_dict.laubs.data[0].values[key].val);
-          console.log('the laubs weight is : ', weights['laubs'])
           value.val += (data_dict.age.data[0].values[key].val*weights['age']);
           value.val += (data_dict.laubs.data[0].values[key].val*weights['laubs']);
-          console.log(value.val)
 
-          console.log("final key, value", key, value);
+          
           parse(base_series, "bar");
 
         });
