@@ -10,7 +10,7 @@ import pandas as pd
 
 
 
-def load_data(dir = '../fixtures/', file_name = 'all_states.txt', sep = '\t'):
+def load_data(dir = '../fixtures/', file_name = 'laubs_all_states.txt', sep = '\t'):
 	"""
 	Given a directory, file_name, and seperator, load them into
 	a pandas dataframe. 
@@ -40,7 +40,7 @@ def load_data(dir = '../fixtures/', file_name = 'all_states.txt', sep = '\t'):
 	return data
 
 
-def get_measure_codes(series_file = '../fixtures/measure.txt'):
+def get_measure_codes(series_file = '../fixtures/laubs_measure.txt'):
 	"""
 	Loads in the series codes regarding LAUS data.
 
@@ -56,7 +56,7 @@ def get_measure_codes(series_file = '../fixtures/measure.txt'):
 
 	return mapper
 
-def get_state_codes(state_file = '../fixtures/s_r_division.txt'):
+def get_state_codes(state_file = '../fixtures/laubs_s_r_division.txt'):
 	"""
 	Uses the s_r_division text from the BLS website to 
 	creates a dictionary which maps state codes to states.

@@ -1,0 +1,8 @@
+laubs_la.txt       : http://download.bls.gov/pub/time.series/la/la.txt,
+laubs_footnote     : http://download.bls.gov/pub/time.series/la/la.footnote,
+laubs_measure      : http://download.bls.gov/pub/time.series/la/la.measure,
+laubs_notice       : http://download.bls.gov/pub/time.series/la/la.notice,
+laubs_period       : http://download.bls.gov/pub/time.series/la/la.period,
+laubs_s_r_division : http://download.bls.gov/pub/time.series/la/la.state_region_division,
+laubs_series       : http://download.bls.gov/pub/time.series/la/la.series,
+laubs_all_states   : http://download.bls.gov/pub/time.series/la/la.data.2.AllStatesU

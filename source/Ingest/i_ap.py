@@ -16,7 +16,7 @@ import os
 
 
 
-def get_urls(url_file = '../source/Ingest/urls_laubs.txt'):
+def get_urls(url_file = '../source/Ingest/urls_ap.txt'):
 	"""
 	Right now, simply returns a dictionary of predefined
 	urls. Later, might load from a seperate resource
