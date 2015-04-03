@@ -1,8 +1,8 @@
 
 ###############################################################################
-# This does the stuff you need to do.
-#
-#
+# 
+# This takes any clean_ data in the fixtures folder and 
+# combines it all into a final data set ready to be hosted.
 #
 #
 #
