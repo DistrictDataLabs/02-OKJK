@@ -62,12 +62,17 @@
       <input type="text" data-slider="laubs" style="display: Hi there;"  data-slider-range = "0,100" data-slider-step="10" data-slider-snap = "true" data-slider-highlight = 'true'>
       <span class="output">0.303</span>
       
+      <!-- Grapefruits Slider -->
+      <div class="track" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; width: 100%; margin-top: -3.5px;"></div>
+      <div class="dragger" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; margin-top: -9px; margin-left: -9px; left: 106.020832061768px;"></div>
+      <input type="text" data-slider="grapefruits" style="display: Hi there;"  data-slider-range = "0,100" data-slider-step="10" data-slider-snap = "true" data-slider-highlight = 'true'>
+      <span class="output">0.303</span>
     </div>
 
 
     <script type = 'text/javascript'>
       
-      var serieses = ['age', 'laubs'];
+      var serieses = ['age', 'laubs', 'grapefruits'];
       var data_dict = {};
       var weights = {};
 
@@ -91,6 +96,7 @@
           value.val = 0;
           value.val += (data_dict.age.data[0].values[key].val*weights['age']);
           value.val += (data_dict.laubs.data[0].values[key].val*weights['laubs']);
+          value.val += (data_dict.grapefruits.data[0].values[key].val*weights['grapefruits']);
 
           
           parse(base_series, "bar");

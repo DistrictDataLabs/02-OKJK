@@ -119,6 +119,10 @@ def combine_data(loaded_files):
 
 		elif short_key == 'clean_age.csv':
 			df['age'] = loaded_files[key]['value']
+			
+		elif short_key == 'clean_ap.csv':
+			print loaded_files[key]['value']
+			df['grapefruits'] = loaded_files[key]['value']
 
 	return df
 
@@ -128,12 +132,13 @@ def load_clean_data(files_and_delims):
 	takes a list of files and their delimiters
 	and loads them all into memory
 	"""
-
+	print files_and_delims
 	loaded_files = dict()
-
+	
 	for f in files_and_delims.keys():
+		print f
 		loaded_files[f] = pd.DataFrame.from_csv(f, sep = files_and_delims[f])
-
+		print 'finished loadng {0}'.format(f)
 
 	return loaded_files
 
