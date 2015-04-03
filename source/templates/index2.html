@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>My Economy Score</title>
+
+    <!-- JQUERY -->
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    
+    <!-- BOOSTRAP -->
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+  
+    <!-- D3 -->
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <script src="http://d3js.org/d3.geo.projection.v0.min.js" charset="utf-8"></script>
+    
+    <!-- VEGA -->
+    <script src="http://trifacta.github.com/vega/vega.js"></script>
+
+    <!-- Simple Slider JavaScript and CSS -->
+    <script src="https://rawgit.com/julbright/jquery-simple-slider/master/js/simple-slider.js"></script>
+    <link href="https://rawgit.com/julbright/jquery-simple-slider/master/css/simple-slider.css" rel="stylesheet" type="text/css">
+
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li role="presentation" class="active"><a href="#">See me on github</a></li>
+          </ul>
+        </nav>
+        <h3 class="text-muted">Operation Washboard Firebuster</h3>
+      </div>
+
+      <div class="jumbotron">
+        
+         <div class="charts text-center">
+        
+        <!-- Only one chart -->
+        <div class="row"><div id="bar"></div></div>
+      </div>
+        
+      </div>
+
+      <div class="row marketing">
+        <div class="col-lg-6">
+          <div class = 'slideholder'>
+          <h4>Age</h4>
+          <div class="track" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; width: 100%; margin-top: -3.5px;"></div>
+          <div class="dragger" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; margin-top: -9px; margin-left: -9px; left: 106.020832061768px;"></div>
+          <input type="text" data-slider="age" style="display: Hi there;" data-slider-range = "0,100" data-slider-step="10" data-slider-snap = "true" data-slider-highlight = 'true'>
+          <span class="output">0.353</span>
+          <p>Some info about age</p>
+          </div>
+
+          <h4>Subheading</h4>
+                <div class="track" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; width: 100%; margin-top: -3.5px;"></div>
+                <div class="dragger" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; margin-top: -9px; margin-left: -9px; left: 106.020832061768px;"></div>
+          <input type="text" data-slider="laubs" style="display: Hi there;"  data-slider-range = "0,100" data-slider-step="10" data-slider-snap = "true" data-slider-highlight = 'true'>
+          <span class="output">0.303</span>
+          <p>Some info about unemployment</p>
+
+          <h4>Grapefruit</h4>
+          <div class="track" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; width: 100%; margin-top: -3.5px;"></div>
+          <div class="dragger" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; margin-top: -9px; margin-left: -9px; left: 106.020832061768px;"></div>
+          <input type="text" data-slider="grapefruits" style="display: Hi there;"  data-slider-range = "0,100" data-slider-step="10" data-slider-snap = "true" data-slider-highlight = 'true'>
+          <span class="output">0.303</span>
+          <p>U</p>
+        </div>
+
+        <div class="col-lg-6">
+          <h4>Subheading</h4>
+          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+
+          <h4>Subheading</h4>
+          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+
+          <h4>Subheading</h4>
+          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+        </div>
+      </div>
+
+
+    </div> 
+ <script type = 'text/javascript'>
+      
+      var serieses = ['age', 'laubs', 'grapefruits'];
+      var data_dict = {};
+      var weights = {};
+
+      function parse(spec, div) {
+        vg.parse.spec(spec, function(chart) { 
+          chart({el:"#" + div}).update();
+        });
+      }           
+      
+      
+      function get_data(series){
+        return $.getJSON("/data/"+series).then(function(data){
+          return data;
+        });
+      }
+     
+           
+      function weightThatData(){
+        var base_series = $.extend(true, {}, data_dict['age']);
+        $.each(base_series.data[0].values, function(key, value){
+          value.val = 0;
+          value.val += (data_dict.age.data[0].values[key].val*weights['age']);
+          value.val += (data_dict.laubs.data[0].values[key].val*weights['laubs']);
+          value.val += (data_dict.grapefruits.data[0].values[key].val*weights['grapefruits']);
+
+          
+          parse(base_series, "jumbotron");
+
+        });
+      }
+  
+      
+      $.each(serieses, function(index, series){
+        get_data(series).then(function(returndata){
+          data_dict[series] = returndata;
+        });
+      });
+
+
+      $("[data-slider]")
+      .bind("slider:ready slider:changed", function (event, data) {
+        $(this).next("span").html(data.value.toFixed(1));
+        var series = $(this).data("slider");
+        weights[series] = data.value.toFixed(1);
+        // console.log(weights);
+        if (event.type == "slider:changed"){
+          weightThatData();
+          // console.log('slider changed');
+        }
+        else if (event.type == 'slider:ready'){
+          // console.log('slider is ready.');
+        }
+      });
+      
+    </script>
+    
+
+  </body>
+</html>
