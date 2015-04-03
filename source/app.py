@@ -65,6 +65,19 @@ def data_laubs():
     bar.axes[0].properties = ax
 
     return bar.to_json()
+    
+@app.route("/data/grapefruits")
+def data_grapefruits():
+
+    bar = vincent.Bar(data.df_states['grapefruits'], width=WIDTH, height=HEIGHT)
+
+    bar.axis_titles(x = '', y = 'Economic Score')
+    ax = AxisProperties(
+    	labels = PropertySet(angle = ValueRef(value = 90),
+    	                     align = ValueRef(value ='left')))
+    bar.axes[0].properties = ax
+
+    return bar.to_json()
 
 ################################################################################
 # Main Execution
