@@ -96,10 +96,23 @@
       var serieses = ['age', 'laubs', 'grapefruits'];
       var data_dict = {};
       var weights = {};
+      var base_series;
+      var vis;
+      
+      function create_base_series(){
+        var base_series = $.extend(true, {}, data_dict['age']);
+        $.each(base_series.data[0].values, function(key, value){
+          value.val = 0;
+        });
+        return base_series;
+      }
 
-      function parse(spec, div) {
+      function create_chart(spec, div) {
+        
         vg.parse.spec(spec, function(chart) { 
-          chart({el:"#" + div}).update();
+          vis = chart({el:"#" + div}).update();
+          debugger
+          return vis
         });
       }           
       
@@ -110,28 +123,40 @@
         });
       }
      
-           
-      function weightThatData(){
-        var base_series = $.extend(true, {}, data_dict['age']);
+      
+      function update_data(series){
+        //update the base series with only the new data.
+      }
+                 
+      function weightThatData(base_series){
         $.each(base_series.data[0].values, function(key, value){
           value.val = 0;
           value.val += (data_dict.age.data[0].values[key].val*weights['age']);
           value.val += (data_dict.laubs.data[0].values[key].val*weights['laubs']);
           value.val += (data_dict.grapefruits.data[0].values[key].val*weights['grapefruits']);
 
-          
-          parse(base_series, "bar");
+          // update_data(base_series, "bar");
 
         });
       }
   
-      
-      $.each(serieses, function(index, series){
-        get_data(series).then(function(returndata){
-          data_dict[series] = returndata;
+      function start_up(){
+        $.each(serieses, function(index, series){
+          get_data(series).then(function(returndata){
+            data_dict[series] = returndata;
+            base_series = create_base_series();
+            vis = create_chart(base_series, 'bar');
+          });
         });
-      });
 
+        // return base_series;
+      }
+
+      // var base_series = create_base_series();
+      // var chart = create_chart(base_series, 'bar');
+      
+      
+      start_up(base_series);
 
       $("[data-slider]")
       .bind("slider:ready slider:changed", function (event, data) {
@@ -140,7 +165,7 @@
         weights[series] = data.value.toFixed(1);
         // console.log(weights);
         if (event.type == "slider:changed"){
-          weightThatData();
+          weightThatData(base_series);
           // console.log('slider changed');
         }
         else if (event.type == 'slider:ready'){
