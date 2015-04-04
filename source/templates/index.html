@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>My Economy Score</title>
+    <style>
+      .sliderholder{
+        padding-bottom : 20px;
+        }
+    </style>
+    <title>TITLE</title>
     <meta charset="utf-8">
     
     <!-- JQUERY -->
@@ -34,8 +39,13 @@
     <div class="container">
       
       <!-- Header -->
-      <div class="header">
-        <h3 class="text-muted">My Economy Score</h3>
+      <div class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li role="presentation" class="active"><a href="#">See me on github</a></li>
+          </ul>
+        </nav>
+        <h3 class="text-muted">Title</h3>
       </div>
       
       <!-- Chart Div -->
@@ -51,34 +61,56 @@
     <div class = 'container'>
       
       <!-- Age Slider -->
-      <div class="track" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; width: 100%; margin-top: -3.5px;"></div>
-      <div class="dragger" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; margin-top: -9px; margin-left: -9px; left: 106.020832061768px;"></div>
-      <input type="text" data-slider="age" style="display: Hi there;" data-slider-range = "0,100" data-slider-step="10" data-slider-snap = "true" data-slider-highlight = 'true'>
-      <span class="output">0.353</span>
+      <div class="sliderholder">
+        <h4>Average Age</h4>
+        <div class="track" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; width: 100%; margin-top: -3.5px;"></div>
+        <div class="dragger" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; margin-top: -9px; margin-left: -9px; left: 106.020832061768px;"></div>
+        <input type="text" data-slider="age" style="display: Hi there;" data-slider-range = "0,100" data-slider-step="10" data-slider-snap = "true" data-slider-highlight = 'true'>
+        <span class="output">0.353</span>
+        <p>Uses <a href = 'http://www.census.gov/prod/cen2010/briefs/c2010br-03.pdf'>2010 Census Bureau Median Age per State</a></p>
+      </div>
       
       <!-- Unemployment Slider -->
-      <div class="track" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; width: 100%; margin-top: -3.5px;"></div>
-      <div class="dragger" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; margin-top: -9px; margin-left: -9px; left: 106.020832061768px;"></div>
-      <input type="text" data-slider="laubs" style="display: Hi there;"  data-slider-range = "0,100" data-slider-step="10" data-slider-snap = "true" data-slider-highlight = 'true'>
-      <span class="output">0.303</span>
+      <div class="sliderholder">
+        <h4>Unemployment</h4>
+        <div class="track" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; width: 100%; margin-top: -3.5px;"></div>
+        <div class="dragger" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; margin-top: -9px; margin-left: -9px; left: 106.020832061768px;"></div>
+        <input type="text" data-slider="laubs" style="display: Hi there;"  data-slider-range = "0,100" data-slider-step="10" data-slider-snap = "true" data-slider-highlight = 'true'>
+        <span class="output">0.303</span>
+        <p>Uses <a href = 'http://www.bls.gov/lau/'>BLS Local Area Unemployment Statistics</a></p>
+      </div>
       
       <!-- Grapefruits Slider -->
-      <div class="track" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; width: 100%; margin-top: -3.5px;"></div>
-      <div class="dragger" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; margin-top: -9px; margin-left: -9px; left: 106.020832061768px;"></div>
-      <input type="text" data-slider="grapefruits" style="display: Hi there;"  data-slider-range = "0,100" data-slider-step="10" data-slider-snap = "true" data-slider-highlight = 'true'>
-      <span class="output">0.303</span>
-    </div>
-
+      <div class="sliderholder">
+        <h4>Price of a pound of grapefruits</h4>
+        <div class="track" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; width: 100%; margin-top: -3.5px;"></div>
+        <div class="dragger" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; margin-top: -9px; margin-left: -9px; left: 106.020832061768px;"></div>
+        <input type="text" data-slider="grapefruits" style="display: Hi there;"  data-slider-range = "0,100" data-slider-step="10" data-slider-snap = "true" data-slider-highlight = 'true'>
+        <span class="output">0.303</span>
+        <p>Uses the <a href = 'http://download.bls.gov/pub/time.series/ap/ap.txt'>BLS Average Price index for Grapefruit, per lb. (453.6 gm)</a></p>
+        </div>
+      </div>
 
     <script type = 'text/javascript'>
       
       var serieses = ['age', 'laubs', 'grapefruits'];
       var data_dict = {};
       var weights = {};
+      var base_series;
+      var vis;
+      
+      function create_base_series(){
+        base_series = $.extend(true, {}, data_dict['age']);
+        $.each(base_series.data[0].values, function(key, value){
+          value.val = 0;
+        });
+        return base_series;
+      }
 
-      function parse(spec, div) {
+      function create_chart(spec, div) {
         vg.parse.spec(spec, function(chart) { 
-          chart({el:"#" + div}).update();
+          vis = chart({el:"#" + div}).update();
+          return vis
         });
       }           
       
@@ -89,37 +121,48 @@
         });
       }
      
-           
-      function weightThatData(){
-        var base_series = $.extend(true, {}, data_dict['age']);
+      
+      function update_chart(series, vis){
+        // debugger;
+        // console.log(series.data[0].values)
+        // vis.data = series.data[0].values;
+        // console.log(vis.data[0]);
+        // vis.view.update(vis.data);
+        create_chart(series, 'bar');
+      }
+                 
+      function weightThatData(base_series, vis){
         $.each(base_series.data[0].values, function(key, value){
           value.val = 0;
           value.val += (data_dict.age.data[0].values[key].val*weights['age']);
           value.val += (data_dict.laubs.data[0].values[key].val*weights['laubs']);
           value.val += (data_dict.grapefruits.data[0].values[key].val*weights['grapefruits']);
-
-          
-          parse(base_series, "bar");
-
         });
       }
   
-      
-      $.each(serieses, function(index, series){
-        get_data(series).then(function(returndata){
-          data_dict[series] = returndata;
+      function start_up(){
+        $.each(serieses, function(index, series){
+          get_data(series).then(function(returndata){
+            data_dict[series] = returndata;
+            base_series = create_base_series();
+            vis = create_chart(base_series, 'bar');
+          });
         });
-      });
+      }
 
+      
+      start_up();
 
       $("[data-slider]")
       .bind("slider:ready slider:changed", function (event, data) {
-        $(this).next("span").html(data.value.toFixed(1));
+        $(this).next("span").html(data.value.toFixed(0));
         var series = $(this).data("slider");
         weights[series] = data.value.toFixed(1);
         // console.log(weights);
         if (event.type == "slider:changed"){
-          weightThatData();
+          weightThatData(base_series);
+          update_chart(base_series, vis);
+          
           // console.log('slider changed');
         }
         else if (event.type == 'slider:ready'){

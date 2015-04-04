@@ -1,8 +1,8 @@
 
 ###############################################################################
-# This does the stuff you need to do.
-#
-#
+# 
+# This takes any clean_ data in the fixtures folder and 
+# combines it all into a final data set ready to be hosted.
 #
 #
 #
@@ -199,8 +199,9 @@ def main():
 	delims = guess_delims(clean_data)
 	loaded = load_clean_data(delims)
 	final_data = combine_data(loaded)
-	final_data = normalize_data(final_data)
 	final_data = fill_missing_values(final_data)
+	final_data = normalize_data(final_data)
+	
 	export_data(final_data)
 
 if __name__ == '__main__':
