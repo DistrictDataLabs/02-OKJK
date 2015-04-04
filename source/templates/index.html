@@ -5,6 +5,26 @@
       .sliderholder{
         padding-bottom : 20px;
         }
+        
+        #wrapper {
+          margin-right: 200px;
+        }
+        
+        #slidercontainer {
+          float: left;
+          width: 200px;
+          margin-left: 20px;
+          /*background-color: #CCF;*/
+        }
+        #contentcontainer {
+          float: right;
+          width: 100%;
+          margin-right: -300px;
+          /*background-color: #FFA;*/
+        }
+        #cleared {
+          clear: both;
+        }
     </style>
     <title>TITLE</title>
     <meta charset="utf-8">
@@ -34,62 +54,63 @@
     <style>hr, h3 {padding-bottom: 20px;}canvas {background-color: #fffff;}</style>
   </head>
   <body>
-    
+    <div id='wrapper'>
     <!-- Div to hold header and chart -->
-    <div class="container">
-      
-      <!-- Header -->
-      <div class="header clearfix">
-        <nav>
-          <ul class="nav nav-pills pull-right">
-            <li role="presentation" class="active"><a href="#">See me on github</a></li>
-          </ul>
-        </nav>
-        <h3 class="text-muted">Title</h3>
-      </div>
-      
-      <!-- Chart Div -->
-      <div class="charts text-center">
+      <div id="contentcontainer">
         
-        <!-- Only one chart -->
-        <div class="row"><div id="bar"></div></div>
-      </div>
-      <hr>
-    </div>
-    
-    <!-- Div to hold sliders -->
-    <div class = 'container'>
-      
-      <!-- Age Slider -->
-      <div class="sliderholder">
-        <h4>Average Age</h4>
-        <div class="track" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; width: 100%; margin-top: -3.5px;"></div>
-        <div class="dragger" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; margin-top: -9px; margin-left: -9px; left: 106.020832061768px;"></div>
-        <input type="text" data-slider="age" style="display: Hi there;" data-slider-range = "0,100" data-slider-step="10" data-slider-snap = "true" data-slider-highlight = 'true'>
-        <span class="output">0.353</span>
-        <p>Uses <a href = 'http://www.census.gov/prod/cen2010/briefs/c2010br-03.pdf'>2010 Census Bureau Median Age per State</a></p>
-      </div>
-      
-      <!-- Unemployment Slider -->
-      <div class="sliderholder">
-        <h4>Unemployment</h4>
-        <div class="track" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; width: 100%; margin-top: -3.5px;"></div>
-        <div class="dragger" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; margin-top: -9px; margin-left: -9px; left: 106.020832061768px;"></div>
-        <input type="text" data-slider="laubs" style="display: Hi there;"  data-slider-range = "0,100" data-slider-step="10" data-slider-snap = "true" data-slider-highlight = 'true'>
-        <span class="output">0.303</span>
-        <p>Uses <a href = 'http://www.bls.gov/lau/'>BLS Local Area Unemployment Statistics</a></p>
-      </div>
-      
-      <!-- Grapefruits Slider -->
-      <div class="sliderholder">
-        <h4>Price of a pound of grapefruits</h4>
-        <div class="track" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; width: 100%; margin-top: -3.5px;"></div>
-        <div class="dragger" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; margin-top: -9px; margin-left: -9px; left: 106.020832061768px;"></div>
-        <input type="text" data-slider="grapefruits" style="display: Hi there;"  data-slider-range = "0,100" data-slider-step="10" data-slider-snap = "true" data-slider-highlight = 'true'>
-        <span class="output">0.303</span>
-        <p>Uses the <a href = 'http://download.bls.gov/pub/time.series/ap/ap.txt'>BLS Average Price index for Grapefruit, per lb. (453.6 gm)</a></p>
+        <!-- Header -->
+        <div class="header clearfix">
+          <nav>
+            <ul class="nav nav-pills pull-right">
+              <li role="presentation" class="active"><a href="#">See me on github</a></li>
+            </ul>
+          </nav>
+          <h3 class="text-muted" align='center'>Title</h3>
+        </div>
+        
+        <!-- Chart Div -->
+        <div class="charts text-center">
+          
+          <!-- Only one chart -->
+          <div class="row"><div id="bar"></div></div>
         </div>
       </div>
+      
+      <!-- Div to hold sliders -->
+      <div id = 'slidercontainer'>
+        
+        <!-- Age Slider -->
+        <div class="sliderholder">
+          <h4>Average Age</h4>
+          <div class="track" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; width: 100%; margin-top: -3.5px;"></div>
+          <div class="dragger" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; margin-top: -9px; margin-left: -9px; left: 106.020832061768px;"></div>
+          <input type="text" data-slider="age" style="display: Hi there;" data-slider-range = "0,100" data-slider-step="10" data-slider-snap = "true" data-slider-highlight = 'true'>
+          <span class="output">0.353</span>
+          <p>Uses <a href = 'http://www.census.gov/prod/cen2010/briefs/c2010br-03.pdf'>2010 Census Bureau Median Age per State</a></p>
+        </div>
+        
+        <!-- Unemployment Slider -->
+        <div class="sliderholder">
+          <h4>Unemployment</h4>
+          <div class="track" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; width: 100%; margin-top: -3.5px;"></div>
+          <div class="dragger" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; margin-top: -9px; margin-left: -9px; left: 106.020832061768px;"></div>
+          <input type="text" data-slider="laubs" style="display: Hi there;"  data-slider-range = "0,100" data-slider-step="10" data-slider-snap = "true" data-slider-highlight = 'true'>
+          <span class="output">0.303</span>
+          <p>Uses <a href = 'http://www.bls.gov/lau/'>BLS Local Area Unemployment Statistics</a></p>
+        </div>
+        
+        <!-- Grapefruits Slider -->
+        <div class="sliderholder">
+          <h4>Price of a pound of grapefruits</h4>
+          <div class="track" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; width: 100%; margin-top: -3.5px;"></div>
+          <div class="dragger" style="position: absolute; top: 50%; -webkit-user-select: none; cursor: pointer; margin-top: -9px; margin-left: -9px; left: 106.020832061768px;"></div>
+          <input type="text" data-slider="grapefruits" style="display: Hi there;"  data-slider-range = "0,100" data-slider-step="10" data-slider-snap = "true" data-slider-highlight = 'true'>
+          <span class="output">0.303</span>
+          <p>Uses the <a href = 'http://download.bls.gov/pub/time.series/ap/ap.txt'>BLS Average Price index for Grapefruit, per lb. (453.6 gm)</a></p>
+          </div>
+        </div>
+      <div id = 'clear'></div>
+    </div>
 
     <script type = 'text/javascript'>
       
