@@ -7,7 +7,7 @@ Summary of Problem: There are a lot of economic indicators being captured by the
 
 
 #software architecture diagram
-![alt text]http://i61.tinypic.com/2vifeh5.jpg)
+![alt text](http://i61.tinypic.com/2vifeh5.jpg)
 
 #data flow diagram
 ![alt text](http://i58.tinypic.com/oswv3m.jpg)
